@@ -100,136 +100,222 @@ const LinkedinIcon = () => (
 export default function ThankYouPage() {
   return (
     <main className={`${outfit.className} min-h-screen bg-black text-white selection:bg-[#1f97ff] selection:text-white`}>
-      <div style={{ containerType: "inline-size" }}>
-        <div
-          style={
-            {
-              "--u": "calc(100cqw / 1024)",
-              position: "relative",
-              height: "calc(100cqw / 1024 * 576)",
-              overflow: "hidden",
-              background: "#000",
-            } as CSSProperties
-          }
-        >
-          {/* ============ BACKGROUND ============ */}
-          {/* Exact PDF background (Obj 263 extracted from PDF) */}
+      {/* Desktop Canvas (>= 768px) */}
+      <div className="hidden md:block w-full">
+        <div style={{ containerType: "inline-size" }}>
           <div
-            style={{
-              ...abs(0, 0, 1024, 576),
-              background: "url(/images/thank-you-bg.png) center/100% 100% no-repeat",
-            }}
-          />
-
-          {/* ============ HEADER ============ */}
-          <Header />
-
-          {/* ============ CENTER CARD ============ */}
-          <div
-            style={{
-              ...abs(279, 143, 430, 167),
-              background:
-                "linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 55%, rgba(255, 255, 255, 0.02) 100%)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              borderRadius: u(12),
-              boxShadow: `inset 0 0 0 ${u(1)} rgba(255, 255, 255, 0.4), 0 8px 32px 0 rgba(0, 0, 0, 0.25)`,
-              zIndex: 30,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              padding: `${u(18)} ${u(24)}`,
-            }}
+            style={
+              {
+                "--u": "calc(100cqw / 1024)",
+                position: "relative",
+                height: "calc(100cqw / 1024 * 576)",
+                overflow: "hidden",
+                background: "#000",
+              } as CSSProperties
+            }
           >
-            {/* Shield Checkmark Icon */}
-            <div style={{ width: u(49), height: u(43), marginBottom: u(8) }}>
-              <CheckmarkBadge />
+            {/* ============ BACKGROUND ============ */}
+            {/* Exact PDF background (Obj 263 extracted from PDF) */}
+            <div
+              style={{
+                ...abs(0, 0, 1024, 576),
+                background: "url(/images/thank-you-bg.png) center/100% 100% no-repeat",
+              }}
+            />
+
+            {/* ============ HEADER ============ */}
+            <Header />
+
+            {/* ============ CENTER CARD ============ */}
+            <div
+              style={{
+                ...abs(279, 143, 430, 167),
+                background:
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 55%, rgba(255, 255, 255, 0.02) 100%)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                borderRadius: u(12),
+                boxShadow: `inset 0 0 0 ${u(1)} rgba(255, 255, 255, 0.4), 0 8px 32px 0 rgba(0, 0, 0, 0.25)`,
+                zIndex: 30,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: `${u(18)} ${u(24)}`,
+              }}
+            >
+              {/* Shield Checkmark Icon */}
+              <div style={{ width: u(49), height: u(43), marginBottom: u(8) }}>
+                <CheckmarkBadge />
+              </div>
+
+              {/* Title */}
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: u(44),
+                  lineHeight: u(48),
+                  fontWeight: 400,
+                  color: "#ffffff",
+                  letterSpacing: "0.01em",
+                }}
+              >
+                Thank You!
+              </h1>
+
+              {/* Subtext */}
+              <p
+                style={{
+                  margin: `${u(6)} 0 0 0`,
+                  fontSize: u(12.5),
+                  lineHeight: u(16),
+                  color: "#e6f0ff",
+                  fontFamily: "Georgia, 'Times New Roman', Times, serif",
+                  letterSpacing: "0.01em",
+                }}
+              >
+                Your submission has been sent.We will be in touch with you shortly.
+              </p>
             </div>
 
-            {/* Title */}
-            <h1
+            {/* ============ FOOTER ============ */}
+            {/* Left Column: Logo & Mission & Copyright */}
+            <Link href="/" style={{ ...abs(110, 405, 36, 45), zIndex: 30 }} aria-label="Empire AE">
+              <img src="/images/logo.png" alt="Empire AE" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            </Link>
+
+            <T x={110} y={456} s={11} lh={16} c="rgba(255,255,255,0.88)" w={340}>
+              A full-service digital solutions company dedicated to<br />
+              helping businesses build, grow, and strengthen their digital<br />
+              presence.
+            </T>
+
+            <T x={110} y={528} s={9.5} lh={12} c="rgba(255,255,255,0.7)">
+              © 2026 Empire AE. All Rights Reserved.
+            </T>
+
+            {/* Right Column: Phone, Email, Socials, Designer */}
+            <a
+              href="tel:+919847980605"
               style={{
-                margin: 0,
-                fontSize: u(44),
-                lineHeight: u(48),
-                fontWeight: 400,
+                ...abs(745, 405),
+                display: "flex",
+                alignItems: "center",
+                gap: u(8),
+                fontSize: u(14.5),
                 color: "#ffffff",
-                letterSpacing: "0.01em",
+                textDecoration: "none",
+                zIndex: 30,
               }}
             >
+              <span style={{ display: "inline-flex" }}><PhoneIcon /></span>
+              <span>+91 9847980605</span>
+            </a>
+
+            <a
+              href="mailto:info@empireae.xyz"
+              style={{
+                ...abs(745, 436),
+                display: "flex",
+                alignItems: "center",
+                gap: u(8),
+                fontSize: u(14.5),
+                color: "#ffffff",
+                textDecoration: "none",
+                zIndex: 30,
+              }}
+            >
+              <span style={{ display: "inline-flex" }}><MailIcon /></span>
+              <span>info@empireae.xyz</span>
+            </a>
+
+            {/* Social Icons (Instagram, Facebook, LinkedIn) */}
+            <div style={{ ...abs(745, 470), display: "flex", gap: u(8), zIndex: 30 }}>
+              {[
+                { icon: <InstagramIcon />, href: "https://instagram.com" },
+                { icon: <FacebookIcon />, href: "https://facebook.com" },
+                { icon: <LinkedinIcon />, href: "https://linkedin.com" },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: u(26),
+                    height: u(26),
+                    borderRadius: "50%",
+                    border: `${u(1)} solid rgba(255,255,255,0.35)`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ffffff",
+                    textDecoration: "none",
+                  }}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+
+            <T x={715} y={528} s={9.5} lh={12} c="rgba(255,255,255,0.7)">
+              Designed with precision by Empire AE
+            </T>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout (< 768px) */}
+      <div className="block md:hidden min-h-screen flex flex-col justify-between bg-black relative px-4 py-8">
+        {/* Background glow */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            background: "url(/images/thank-you-bg.png) center/cover no-repeat",
+          }}
+        />
+
+        {/* Top Header */}
+        <div className="relative z-10 flex justify-center pb-8 border-b border-white/10">
+          <Link href="/" aria-label="Empire AE">
+            <img src="/images/logo.png" alt="Empire AE" className="h-12 w-auto object-contain" />
+          </Link>
+        </div>
+
+        {/* Center Card */}
+        <div className="relative z-10 my-auto py-8">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 sm:p-8 text-center max-w-sm mx-auto shadow-2xl">
+            <div className="w-14 h-14 mx-auto mb-4">
+              <CheckmarkBadge />
+            </div>
+            <h1 className="text-3xl font-semibold text-white tracking-tight">
               Thank You!
             </h1>
-
-            {/* Subtext */}
-            <p
-              style={{
-                margin: `${u(6)} 0 0 0`,
-                fontSize: u(12.5),
-                lineHeight: u(16),
-                color: "#e6f0ff",
-                fontFamily: "Georgia, 'Times New Roman', Times, serif",
-                letterSpacing: "0.01em",
-              }}
-            >
-              Your submission has been sent.We will be in touch with you shortly.
+            <p className="mt-3 text-sm text-blue-100 font-serif leading-relaxed">
+              Your submission has been sent. We will be in touch with you shortly.
             </p>
+            <Link
+              href="/"
+              className="mt-6 inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#006eef] hover:bg-[#005cd0] text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-500/20"
+            >
+              ← Back to Home
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Footer */}
+        <div className="relative z-10 pt-8 border-t border-white/10 flex flex-col items-center text-center gap-4">
+          <div className="flex flex-col gap-2 text-sm">
+            <a href="tel:+919847980605" className="inline-flex items-center justify-center gap-2 text-white hover:text-[#18c4ff]">
+              <PhoneIcon /> <span>+91 9847980605</span>
+            </a>
+            <a href="mailto:info@empireae.xyz" className="inline-flex items-center justify-center gap-2 text-white hover:text-[#18c4ff]">
+              <MailIcon /> <span>info@empireae.xyz</span>
+            </a>
           </div>
 
-          {/* ============ FOOTER ============ */}
-          {/* Left Column: Logo & Mission & Copyright */}
-          <Link href="/" style={{ ...abs(110, 405, 36, 45), zIndex: 30 }} aria-label="Empire AE">
-            <img src="/images/logo.png" alt="Empire AE" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          </Link>
-
-          <T x={110} y={456} s={11} lh={16} c="rgba(255,255,255,0.88)" w={340}>
-            A full-service digital solutions company dedicated to<br />
-            helping businesses build, grow, and strengthen their digital<br />
-            presence.
-          </T>
-
-          <T x={110} y={528} s={9.5} lh={12} c="rgba(255,255,255,0.7)">
-            © 2026 Empire AE. All Rights Reserved.
-          </T>
-
-          {/* Right Column: Phone, Email, Socials, Designer */}
-          <a
-            href="tel:+919847980605"
-            style={{
-              ...abs(745, 405),
-              display: "flex",
-              alignItems: "center",
-              gap: u(8),
-              fontSize: u(14.5),
-              color: "#ffffff",
-              textDecoration: "none",
-              zIndex: 30,
-            }}
-          >
-            <span style={{ display: "inline-flex" }}><PhoneIcon /></span>
-            <span>+91 9847980605</span>
-          </a>
-
-          <a
-            href="mailto:info@empireae.xyz"
-            style={{
-              ...abs(745, 436),
-              display: "flex",
-              alignItems: "center",
-              gap: u(8),
-              fontSize: u(14.5),
-              color: "#ffffff",
-              textDecoration: "none",
-              zIndex: 30,
-            }}
-          >
-            <span style={{ display: "inline-flex" }}><MailIcon /></span>
-            <span>info@empireae.xyz</span>
-          </a>
-
-          {/* Social Icons (Instagram, Facebook, LinkedIn) */}
-          <div style={{ ...abs(745, 470), display: "flex", gap: u(8), zIndex: 30 }}>
+          <div className="flex gap-3">
             {[
               { icon: <InstagramIcon />, href: "https://instagram.com" },
               { icon: <FacebookIcon />, href: "https://facebook.com" },
@@ -240,26 +326,16 @@ export default function ThankYouPage() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  width: u(26),
-                  height: u(26),
-                  borderRadius: "50%",
-                  border: `${u(1)} solid rgba(255,255,255,0.35)`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#ffffff",
-                  textDecoration: "none",
-                }}
+                className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-[#18c4ff] hover:text-[#18c4ff] transition-colors"
               >
                 {social.icon}
               </a>
             ))}
           </div>
 
-          <T x={715} y={528} s={9.5} lh={12} c="rgba(255,255,255,0.7)">
-            Designed with precision by Empire AE
-          </T>
+          <p className="text-[11px] text-gray-400">
+            © 2026 Empire AE. All Rights Reserved.
+          </p>
         </div>
       </div>
     </main>

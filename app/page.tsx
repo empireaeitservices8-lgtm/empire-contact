@@ -47,11 +47,45 @@ function T({ x, y, s, lh, c = "#fff", b, w, center, ls, children }: TProps) {
 }
 
 const SERVICES = [
-  { x: 62, icon: "/images/icon-1.png", title: ["Android & iOS", "App Development"], tTop: 1456, text: ["Custom and high-", "performance apps", "for all platforms"] },
-  { x: 246, icon: "/images/icon-2.png", title: ["Graphic Designing"], tTop: 1464, text: ["Modern and intuitive", "designs to improve", "user engagement."] },
-  { x: 430, icon: "/images/icon-3.png", title: ["API & Backend", "Integration"], tTop: 1456, text: ["Seamless integration", "with third-party", "services."] },
-  { x: 614, icon: "/images/icon-4.png", title: ["Testing &", "Quality Assurance"], tTop: 1456, text: ["Robust testing for", "a smooth and", "bug-free experience."] },
-  { x: 798, icon: "/images/icon-5.png", title: ["App Deployment &", "Support"], tTop: 1456, text: ["We publish your app", "on Google Play Store", "and Apple App Store."] },
+  {
+    icon: "/images/icon-1.png",
+    title: ["Mobile App", "Development"],
+    text: ["Custom and high-performance", "apps for all platforms."],
+  },
+  {
+    icon: "/images/icon-2.png",
+    title: ["Graphic", "Designing"],
+    text: ["Modern and intuitive designs", "to improve user engagement."],
+  },
+  {
+    icon: "/images/icon-3.png",
+    title: ["Web", "Development"],
+    text: ["Fast, responsive, and scalable", "modern web applications."],
+  },
+  {
+    icon: "/images/icon-5.png",
+    title: ["Hosting &", "Domain"],
+    text: ["Reliable hosting setup,", "domain management & cloud."],
+  },
+  {
+    icon: "/images/icon-marketing.svg",
+    title: ["Digital", "Marketing"],
+    text: ["Targeted campaigns to boost", "visibility, leads & growth."],
+  },
+  {
+    icon: "/images/icon-ecommerce.svg",
+    title: ["E-Commerce", "Application"],
+    text: ["Feature-rich online stores", "with seamless payments."],
+  },
+];
+
+const SERVICE_COORDS = [
+  { x: 76, y: 1320 },
+  { x: 374, y: 1320 },
+  { x: 672, y: 1320 },
+  { x: 76, y: 1510 },
+  { x: 374, y: 1510 },
+  { x: 672, y: 1510 },
 ];
 
 const PROJECTS = [
@@ -61,11 +95,110 @@ const PROJECTS = [
   { x: 748, name: "Healthcare App", industry: "Healthcare" },
 ];
 
-const TESTIMONIALS = [
-  { x: 76, lines: ["“The team understood our requirements very", "well and delivered a high-quality app on time.", "Professional and reliable service.”"], name: "Aneesh Kumar", role: "Retail Business" },
-  { x: 370, lines: ["“Excellent communication and support", "throughout the project. The app has helped our", "business grow significantly.”"], name: "Dr. Priya Nair", role: "Healthcare Industry" },
-  { x: 664, lines: ["“Creative team with strong technical skills.", "Highly recommended for anyone looking for a", "mobile app development partner.”"], name: "Ramesh V", role: "Travel & Tourism" },
+export type TestimonialItem = {
+  id: string;
+  name: string;
+  role: string;
+  company?: string;
+  review: string;
+  image?: string;
+};
+
+const TESTIMONIALS: TestimonialItem[] = [
+  {
+    id: "nakshathra",
+    name: "Nakshathra Gold and Diamonds",
+    role: "Founder",
+    company: "",
+    review:
+      "“Their engineering team helped us improve the reliability of our platform and simplify several complex workflows. The collaboration was professional and well organized.”",
+    image: "/images/client-nakshathra.png",
+  },
+  {
+    id: "keralainstitutesalesapp",
+    name: "Kerala Institute",
+    role: "Founder",
+    company: "",
+    review:
+      "“From planning to delivery, the team maintained a clear focus on quality and usability. The final solution gave us a stronger foundation for future improvements.”",
+    image: "/images/client-kde.png",
+  },
+  {
+    id: "charmika",
+    name: "Charmika",
+    role: "Founder",
+    company: "",
+    review:
+      "“Working with this team was a great experience. They understood our product requirements, communicated clearly, and delivered a solution that fit our business needs.”",
+    image: "/images/charmika.png",
+  },
 ];
+
+const getInitials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+function TestimonialAvatar({ image, name }: { image?: string; name: string }) {
+  const [hasError, setHasError] = useState(false);
+  const showImage = Boolean(image) && !hasError;
+
+  return (
+    <div
+      style={{
+        width: u(44),
+        height: u(44),
+        borderRadius: "50%",
+        background: "#051834",
+        boxShadow: `inset 0 0 0 ${u(1.5)} #18c4ff`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        overflow: "hidden",
+      }}
+    >
+      {showImage ? (
+        <img
+          src={image}
+          alt={name}
+          onError={() => setHasError(true)}
+          style={{ width: "100%", height: "100%", objectFit: "contain", padding: u(4) }}
+        />
+      ) : (
+        <span style={{ fontSize: u(14), fontWeight: 700, color: "#18c4ff" }}>
+          {getInitials(name)}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function MobileTestimonialAvatar({ image, name }: { image?: string; name: string }) {
+  const [hasError, setHasError] = useState(false);
+  const showImage = Boolean(image) && !hasError;
+
+  return (
+    <div className="w-12 h-12 rounded-full bg-[#051834] border border-[#18c4ff] flex items-center justify-center shrink-0 overflow-hidden">
+      {showImage ? (
+        <img
+          src={image}
+          alt={name}
+          onError={() => setHasError(true)}
+          className="w-full h-full object-contain p-1"
+        />
+      ) : (
+        <span className="text-sm font-bold text-[#18c4ff]">
+          {getInitials(name)}
+        </span>
+      )}
+    </div>
+  );
+}
 
 const FAQS = [
   {
@@ -81,8 +214,8 @@ const FAQS = [
     a: "Yes! We specialize in cross-platform development as well as native development for both Android and iOS, ensuring high performance on all devices.",
   },
   {
-    q: "Do you provide graphic design services?",
-    a: "Yes, we offer professional graphic design and branding services, including custom app icons, promotional banners, UI assets, and intuitive visual elements to enhance user engagement.",
+    q: "Do you provide web development services?",
+    a: "Yes, we build modern, responsive, and scalable web applications using Next.js and robust backend architectures tailored to your business goals.",
   },
   {
     q: "Can you publish your app on Google Play Store and Apple App Store?",
@@ -94,13 +227,11 @@ const FAQS = [
   },
 ];
 
-const SOCIALS: [string, number][] = [
-  ["Facebook", 412],
-  ["Instagram", 482],
-  ["Linkedin", 559],
-  ["Threads", 632],
-  ["Youtube", 698],
-  ["X", 765],
+const SOCIALS = [
+  { label: "Facebook", x: 412, href: "https://www.facebook.com/empireaeitservices" },
+  { label: "Instagram", x: 482, href: "https://www.instagram.com/empire_ae_official" },
+  { label: "Linkedin", x: 559, href: "https://www.linkedin.com/company/empireaeitservices/?originalSubdomain=in" },
+  { label: "Threads", x: 632, href: "https://www.threads.com/@empire_ae_official" },
 ];
 
 const APP_TYPES = ["Android App", "iOS App", "Android + iOS App", "E-commerce App", "Other"];
@@ -179,529 +310,565 @@ export default function Page() {
       {/* ================= DESKTOP LAYOUT (>= 1024px) ================= */}
       {/* =============================================================== */}
       <div className="hidden lg:block w-full">
+        <Header />
         <div style={{ containerType: "inline-size" }}>
-        <div
-          style={
-            {
-              "--u": "calc(100cqw / 1024)",
-              position: "relative",
-              height: `calc(100cqw / 1024 * ${3190 + totalFaqExpansion})`,
-              overflow: "hidden",
-              background: "#000",
-            } as CSSProperties
-          }
-        >
-          {/* ============ BACKGROUNDS ============ */}
-          <div style={{ ...abs(0, 0, 1024, 576), background: "url(/images/hero-bg.png) center/100% 100% no-repeat" }} />
-          <div style={{ ...abs(0, 1728, 1024, 576), background: "url(/images/hero-bg.png) center/100% 100% no-repeat" }} />
-
-          {/* ============ HEADER ============ */}
-          <Header />
-
-          {/* ============ 3D RINGS ============ */}
-          <img
-            src="/images/ring-left.png"
-            alt=""
-            aria-hidden
-            style={{
-              ...abs(-111, 659, 206, 205),
-              opacity: 0.65,
-              filter: "saturate(0.4) brightness(1.1)",
-              pointerEvents: "none",
-            }}
-          />
-          <img
-            src="/images/ring-right.png"
-            alt=""
-            aria-hidden
-            style={{
-              ...abs(788, 946, 236, 335),
-              zIndex: 15,
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* ============ HERO ============ */}
-          <T x={115} y={132} s={14} lh={16} ls="0.06em">
-            Mobile App Development Company in<br />Kerala for Custom Android &amp; iOS Apps
-          </T>
-          <h1 style={{ ...abs(111, 198), margin: 0, fontSize: u(59.9), lineHeight: u(62), fontWeight: 400, whiteSpace: "nowrap" }}>
-            Have an<br />App Idea ?
-          </h1>
-          <T x={111} y={345} s={20} lh={25}>
-            Let&apos;s Turn It Into a Powerful<br />Business Application.
-          </T>
           <div
-            style={{
-              ...abs(112, 437, 98, 22),
-              background: "#006eef",
-              borderRadius: 999,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: u(14),
-              fontWeight: 500,
-            }}
+            style={
+              {
+                "--u": "calc(100cqw / 1024)",
+                position: "relative",
+                height: `calc(100cqw / 1024 * ${3190 + totalFaqExpansion})`,
+                overflow: "hidden",
+                background: "#000",
+              } as CSSProperties
+            }
           >
-            → ₹49,999
-          </div>
+            {/* ============ BACKGROUNDS ============ */}
+            <div style={{ ...abs(0, 0, 1024, 576), background: "url(/images/hero-bg.png) center/100% 100% no-repeat" }} />
+            <div style={{ ...abs(0, 1728, 1024, 576), background: "url(/images/hero-bg.png) center/100% 100% no-repeat" }} />
 
-          {/* FORM CARD */}
-          <form
-            id="consult"
-            onSubmit={onSubmit}
-            style={{
-              ...abs(512, 89, 396, 412),
-              background: "rgba(12,35,63,0.5)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              borderRadius: u(58),
-              boxShadow: `inset 0 0 0 ${u(2.5)} rgba(73,119,165,0.8)`,
-              zIndex: 10,
-            }}
-          >
-            <T x={fx(561)} y={fy(109)} s={26.7} lh={27} b>Get in Touch</T>
-
-            <T x={fx(561)} y={fy(155)} s={9.7} lh={10} b>Full Name</T>
-            <input name="name" required placeholder="Enter your full name" className={fieldCls}
-              style={{ ...fieldStyle, ...abs(fx(556), fy(171), 302, 34) }} />
-
-            <T x={fx(561)} y={fy(222)} s={9.7} lh={10} b>Email Address</T>
-            <input name="email" type="email" required placeholder="you@example.com" className={fieldCls}
-              style={{ ...fieldStyle, ...abs(fx(556), fy(238), 152, 34) }} />
-
-            <T x={fx(725)} y={fy(224)} s={9.7} lh={10} b>Phone Number</T>
-            <input name="phone" type="tel" required placeholder="+91 98765 43210" className={fieldCls}
-              style={{ ...fieldStyle, ...abs(fx(718), fy(238), 140, 34) }} />
-
-            <T x={fx(561)} y={fy(289)} s={9.7} lh={10} b>What type of app do you need?</T>
-            <select
-              name="appType"
-              required
-              defaultValue=""
-              className={fieldCls}
+            {/* ============ 3D RINGS ============ */}
+            <img
+              src="/images/ring-left.png"
+              alt=""
+              aria-hidden
               style={{
-                ...fieldStyle,
-                ...abs(fx(556), fy(305), 302, 34),
-                paddingRight: u(32),
-                cursor: "pointer",
-              }}
-            >
-              <option value="" disabled style={{ backgroundColor: "#0e243d", color: "#8faecf" }}>
-                Select an option
-              </option>
-              {APP_TYPES.map((o) => (
-                <option key={o} value={o} style={{ backgroundColor: "#0e243d", color: "#ffffff" }}>
-                  {o}
-                </option>
-              ))}
-            </select>
-            <div
-              aria-hidden="true"
-              style={{
-                ...abs(fx(834), fy(305), 18, 34),
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                ...abs(-111, 659, 206, 205),
+                opacity: 0.65,
+                filter: "saturate(0.4) brightness(1.1)",
                 pointerEvents: "none",
-                fontSize: u(9.7),
-                color: "#becfe4",
-                userSelect: "none",
               }}
-            >
-              ▾
-            </div>
-
-            <T x={fx(561)} y={fy(356)} s={9.7} lh={10} b>Estimated Budget</T>
-            <select
-              name="budget"
-              required
-              defaultValue=""
-              className={fieldCls}
+            />
+            <img
+              src="/images/ring-right.png"
+              alt=""
+              aria-hidden
               style={{
-                ...fieldStyle,
-                ...abs(fx(556), fy(372), 302, 34),
-                paddingRight: u(32),
-                cursor: "pointer",
-              }}
-            >
-              <option value="" disabled style={{ backgroundColor: "#0e243d", color: "#8faecf" }}>
-                Select your budget
-              </option>
-              {BUDGETS.map((o) => (
-                <option key={o} value={o} style={{ backgroundColor: "#0e243d", color: "#ffffff" }}>
-                  {o}
-                </option>
-              ))}
-            </select>
-            <div
-              aria-hidden="true"
-              style={{
-                ...abs(fx(834), fy(372), 18, 34),
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                ...abs(788, 946, 236, 335),
+                zIndex: 15,
                 pointerEvents: "none",
-                fontSize: u(9.7),
-                color: "#becfe4",
-                userSelect: "none",
               }}
-            >
-              ▾
-            </div>
+            />
 
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                ...abs(fx(557), fy(417), 301, 32),
-                background: "#1f97ff",
-                borderRadius: u(6),
-                fontSize: u(11),
-                fontWeight: 600,
-                color: "#fff",
-                border: "none",
-                cursor: "pointer",
-                opacity: loading ? 0.6 : 1,
-              }}
-            >
-              {loading ? "Sending…" : "Get a Free Consultation  →"}
-            </button>
-            <T x={0} y={fy(459)} s={9.4} lh={11} c="#becfe4" w={396} center>
-              🔒 Your information is 100% secure and will not be<br />shared.
+            {/* ============ HERO ============ */}
+            <T x={115} y={132} s={14} lh={16} ls="0.06em">
+              Mobile App Development Company in<br />Kerala for Custom Android &amp; iOS Apps
             </T>
-          </form>
-
-          {/* hero ring sits on top of the card with transparency, as in the image */}
-          <img
-            src="/images/ring-hero.png"
-            alt=""
-            aria-hidden
-            style={{
-              ...abs(819, -134, 342, 334),
-              zIndex: 20,
-              pointerEvents: "none",
-              opacity: 0.8,
-            }}
-          />
-
-          {/* ============ TRUST ============ */}
-          <div id="about" style={{ ...abs(0, 640, 1024, 1), pointerEvents: "none" }} />
-          <div id="team" style={{ ...abs(0, 640, 1024, 1), pointerEvents: "none" }} />
-          <T x={0} y={661} s={35} lh={36} b w={1024} center>Building Digital Solutions</T>
-          <T x={0} y={697} s={35} lh={36} b c="#1076e6" w={1024} center>That Businesses Trust</T>
-          <T x={125} y={777} s={12} lh={15} b>
-            With years of experience in digital product development, Empire AE helps businesses transform their ideas into practical, user-friendly<br />mobile applications.
-          </T>
-          {/* ============ STATS (Crisp Vector Typography) ============ */}
-          <div style={{ ...abs(277 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
-            <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
-              100+
-            </div>
-            <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
-              Successful Projects
-            </div>
-          </div>
-
-          <div style={{ ...abs(516 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
-            <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
-              100+
-            </div>
-            <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
-              Trusted Businesses
-            </div>
-          </div>
-
-          <div style={{ ...abs(755 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
-            <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
-              9+
-            </div>
-            <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
-              Years of Excellence
-            </div>
-          </div>
-          <img
-            src="/images/clients.png"
-            alt="Nakshathra, SuchiGo, Gaby Talk, Heart Mate, KDE"
-            style={{ ...abs(95, 990, 755, 70), zIndex: 5 }}
-          />
-
-          {/* ============ SERVICES ============ */}
-          <div id="services" style={{ ...abs(0, 1180, 1024, 1), pointerEvents: "none" }} />
-          <T x={271} y={1218} s={68.9} lh={69} b>What <span style={{ color: "#006eef" }}>we offer</span></T>
-          {SERVICES.map((s) => (
-            <div key={s.x}>
-              <div style={{ ...abs(s.x, 1355, 164, 230), background: "#fff", borderRadius: u(16), boxShadow: `inset 0 0 0 ${u(1.4)} #dae1eb` }} />
-              <img src={s.icon} alt="" style={abs(s.x + 45, 1370, 74, 74)} />
-              <T x={s.x} y={s.tTop} s={13} lh={16} c="#091e3c" b w={164} center>
-                {s.title.map((l, i) => <span key={i}>{l}{i < s.title.length - 1 && <br />}</span>)}
-              </T>
-              <T x={s.x + 12} y={1502} s={10.5} lh={14} c="#5c6e84" w={140} center>
-                {s.text.map((l, i) => <span key={i}>{l}{i < s.text.length - 1 && <br />}</span>)}
-              </T>
-            </div>
-          ))}
-
-          {/* ============ PORTFOLIO ============ */}
-          <div id="portfolio" style={{ ...abs(0, 1750, 1024, 1), pointerEvents: "none" }} />
-          <img
-            src="/images/portfolio-right.png"
-            alt=""
-            aria-hidden
-            style={{
-              ...abs(760, 1728, 264, 230),
-              pointerEvents: "none",
-            }}
-          />
-          <T x={74} y={1794} s={48} lh={48}>
-            Apps{" "}
-            <span
-              style={{
-                background: "linear-gradient(180deg, #9ecbff 0%, #16539e 35%, #0b254a 70%, #020914 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              We’ve Built
-            </span>
-          </T>
-          <T x={74} y={1862} s={14} lh={18}>Here are some of the mobile applications we have developed for our clients.</T>
-          <a href="#portfolio" style={{ ...abs(795, 1902, 148, 33), background: "#03070c", boxShadow: `inset 0 0 0 ${u(1.5)} #18c4ff`, borderRadius: u(4), display: "flex", alignItems: "center", justifyContent: "center", fontSize: u(11.5), fontWeight: 600, color: "#18c4ff", textDecoration: "none" }}>
-            View All Projects →
-          </a>
-          {PROJECTS.map((p) => (
-            <div key={p.name}>
-              <div style={{ ...abs(p.x, 1963, 208, 185), background: "#fff", borderRadius: u(22) }} />
-              <div style={{ ...abs(p.x + 2, 1965, 204, 105), background: "#164169", borderRadius: u(19) }} />
-              <T x={p.x + 2} y={1988} s={22} lh={26} b w={204} center>APP<br />PREVIEW</T>
-              <T x={p.x + 16} y={2078} s={16} lh={19} c="#081c37" b>{p.name}</T>
-              <T x={p.x + 16} y={2102} s={11.5} lh={15} c="#506478">Industry: {p.industry}<br />Platform: Android + iOS</T>
-              <a href="#portfolio" style={{ ...abs(p.x + 16, 2156), fontSize: u(13), lineHeight: u(15), fontWeight: 600, color: "#1076e6", whiteSpace: "nowrap", textDecoration: "none" }}>View Project →</a>
-            </div>
-          ))}
-          <img
-            src="/images/portfolio-left.png"
-            alt=""
-            aria-hidden
-            style={{
-              ...abs(0, 2190, 222, 142),
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* ============ TESTIMONIALS ============ */}
-          <T x={76} y={2360} s={34} lh={38} b>What Our <span style={{ color: "#18c4ff" }}>Clients Say</span></T>
-          {TESTIMONIALS.map((t) => (
+            <h1 style={{ ...abs(111, 198), margin: 0, fontSize: u(59.9), lineHeight: u(62), fontWeight: 400, whiteSpace: "nowrap" }}>
+              Have an<br />App Idea ?
+            </h1>
+            <T x={111} y={345} s={20} lh={25}>
+              Let&apos;s Turn It Into a Powerful<br />Business Application.
+            </T>
             <div
-              key={t.name}
               style={{
-                ...abs(t.x, 2415, 284, 158),
-                background: "#081e37",
-                borderRadius: u(14),
-                boxShadow: `inset 0 0 0 ${u(1.5)} #1469aa`,
-                padding: `${u(16)} ${u(18)}`,
+                ...abs(112, 437, 98, 22),
+                background: "#006eef",
+                borderRadius: 999,
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                boxSizing: "border-box",
-                overflow: "hidden",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: u(14),
+                fontWeight: 500,
               }}
             >
-              <div style={{ display: "flex", alignItems: "flex-start", gap: u(12) }}>
-                <img
-                  src="/images/avatar.png"
-                  alt=""
-                  style={{
-                    width: u(44),
-                    height: u(44),
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    flexShrink: 0,
-                  }}
-                />
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: u(11),
-                    lineHeight: u(15.2),
-                    color: "#e2ecf8",
-                    fontStyle: "italic",
-                    whiteSpace: "normal",
-                    wordBreak: "normal",
-                  }}
-                >
-                  {t.lines.join(" ")}
-                </p>
-              </div>
-              <div style={{ paddingLeft: u(56) }}>
-                <div style={{ fontSize: u(13), lineHeight: u(16), fontWeight: 700, color: "#ffffff" }}>
-                  {t.name}
-                </div>
-                <div style={{ fontSize: u(10.5), lineHeight: u(13), color: "#aabcd2", marginTop: u(2) }}>
-                  {t.role}
-                </div>
-              </div>
+              → ₹49,999
             </div>
-          ))}
 
-          {/* ============ FAQ ============ */}
-          <div id="faq" style={{ ...abs(0, 2600, 1024, 1), pointerEvents: "none" }} />
-          <T x={76} y={2620} s={34} lh={38} b>Frequently <span style={{ color: "#18c4ff" }}>Asked Questions</span></T>
-          <a href="#faq" style={{ ...abs(796, 2618, 152, 36), background: "#03070c", boxShadow: `inset 0 0 0 ${u(1.5)} #18c4ff`, borderRadius: u(4), display: "flex", alignItems: "center", justifyContent: "center", fontSize: u(11.5), fontWeight: 600, color: "#18c4ff", textDecoration: "none" }}>
-            View More FAQ →
-          </a>
-          {[...leftFaqItems, ...rightFaqItems].map((item) => (
-            <div
-              key={item.q}
-              onClick={() => toggleFaq(item.index)}
+            {/* FORM CARD */}
+            <form
+              id="consult"
+              onSubmit={onSubmit}
               style={{
-                ...abs(item.x, item.y, 428, item.h),
-                background: item.isOpen ? "#071830" : "#051223",
-                borderRadius: u(8),
-                boxShadow: `inset 0 0 0 ${u(1.5)} ${item.isOpen ? "#18c4ff" : "#1469aa"}`,
-                cursor: "pointer",
-                padding: `${u(13)} ${u(18)}`,
-                boxSizing: "border-box",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                transition: "background 0.2s, box-shadow 0.2s, height 0.2s",
+                ...abs(512, 89, 396, 412),
+                background: "rgba(12,35,63,0.5)",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
+                borderRadius: u(58),
+                boxShadow: `inset 0 0 0 ${u(2.5)} rgba(73,119,165,0.8)`,
+                zIndex: 10,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: u(10), minHeight: u(20) }}>
-                <span style={{ fontSize: u(12.5), lineHeight: u(16), fontWeight: 500, color: "#ffffff", whiteSpace: "nowrap" }}>
-                  {item.q}
-                </span>
-                <span
-                  style={{
-                    fontSize: u(18),
-                    lineHeight: u(18),
-                    fontWeight: 700,
-                    color: "#18c4ff",
-                    transform: item.isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                    transition: "transform 0.2s ease",
-                    display: "inline-block",
-                    userSelect: "none",
-                  }}
-                >
-                  +
-                </span>
-              </div>
-              {item.isOpen && (
-                <div
-                  style={{
-                    marginTop: u(10),
-                    paddingTop: u(8),
-                    borderTop: `1px solid rgba(24, 196, 255, 0.2)`,
-                    fontSize: u(11),
-                    lineHeight: u(15.2),
-                    color: "#b9cadc",
-                    whiteSpace: "normal",
-                  }}
-                >
-                  {item.a}
-                </div>
-              )}
-            </div>
-          ))}
+              <T x={fx(561)} y={fy(109)} s={26.7} lh={27} b>Get in Touch</T>
 
-          {/* ============ CTA ============ */}
-          <div id="careers" style={{ ...abs(0, 2870 + totalFaqExpansion, 1024, 1), pointerEvents: "none" }} />
-          <div
-            style={{
-              ...abs(76, 2885 + totalFaqExpansion, 872, 114),
-              background: "#091e3c",
-              borderRadius: u(16),
-              boxShadow: `inset 0 0 0 ${u(1.5)} #1076e6`,
-              padding: `0 ${u(28)}`,
-              boxSizing: "border-box",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: u(16),
-            }}
-          >
-            {/* Left Headline */}
-            <div style={{ flexShrink: 0 }}>
-              <div style={{ fontSize: u(24), lineHeight: u(28), fontWeight: 700, color: "#ffffff" }}>
-                Make your
-              </div>
-              <div style={{ fontSize: u(22), lineHeight: u(26), fontWeight: 700, color: "#18c4ff" }}>
-                mark in the digital world
-              </div>
-            </div>
+              <T x={fx(561)} y={fy(155)} s={9.7} lh={10} b>Full Name</T>
+              <input name="name" required placeholder="Enter your full name" className={fieldCls}
+                style={{ ...fieldStyle, ...abs(fx(556), fy(171), 302, 34) }} />
 
-            {/* Middle Description */}
-            <div
-              style={{
-                maxWidth: u(220),
-                fontSize: u(11.5),
-                lineHeight: u(16.5),
-                color: "#d0e0f2",
-                whiteSpace: "normal",
-                wordBreak: "normal",
-                flexShrink: 1,
-              }}
-            >
-              Discuss your app idea with our experts and get a free consultation.
-            </div>
+              <T x={fx(561)} y={fy(222)} s={9.7} lh={10} b>Email Address</T>
+              <input name="email" type="email" required placeholder="you@example.com" className={fieldCls}
+                style={{ ...fieldStyle, ...abs(fx(556), fy(238), 152, 34) }} />
 
-            {/* Right Buttons */}
-            <div style={{ display: "flex", alignItems: "center", gap: u(14), flexShrink: 0 }}>
-              <a
-                href="#consult"
+              <T x={fx(725)} y={fy(224)} s={9.7} lh={10} b>Phone Number</T>
+              <input name="phone" type="tel" required placeholder="+91 98765 43210" className={fieldCls}
+                style={{ ...fieldStyle, ...abs(fx(718), fy(238), 140, 34) }} />
+
+              <T x={fx(561)} y={fy(289)} s={9.7} lh={10} b>What type of app do you need?</T>
+              <select
+                name="appType"
+                required
+                defaultValue=""
+                className={fieldCls}
                 style={{
-                  width: u(144),
-                  height: u(44),
-                  background: "#ffffff",
-                  borderRadius: u(8),
+                  ...fieldStyle,
+                  ...abs(fx(556), fy(305), 302, 34),
+                  paddingRight: u(32),
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" disabled style={{ backgroundColor: "#0e243d", color: "#8faecf" }}>
+                  Select an option
+                </option>
+                {APP_TYPES.map((o) => (
+                  <option key={o} value={o} style={{ backgroundColor: "#0e243d", color: "#ffffff" }}>
+                    {o}
+                  </option>
+                ))}
+              </select>
+              <div
+                aria-hidden="true"
+                style={{
+                  ...abs(fx(834), fy(305), 18, 34),
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: u(10.5),
-                  fontWeight: 600,
-                  color: "#081e37",
-                  textDecoration: "none",
+                  pointerEvents: "none",
+                  fontSize: u(9.7),
+                  color: "#becfe4",
+                  userSelect: "none",
                 }}
               >
-                Get Free Consultation →
-              </a>
-              <a
-                href="tel:+919895280605"
+                ▾
+              </div>
+
+              <T x={fx(561)} y={fy(356)} s={9.7} lh={10} b>Estimated Budget</T>
+              <select
+                name="budget"
+                required
+                defaultValue=""
+                className={fieldCls}
                 style={{
-                  width: u(130),
-                  height: u(44),
-                  background: "#051834",
-                  boxShadow: `inset 0 0 0 ${u(1.5)} #ffffff`,
+                  ...fieldStyle,
+                  ...abs(fx(556), fy(372), 302, 34),
+                  paddingRight: u(32),
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" disabled style={{ backgroundColor: "#0e243d", color: "#8faecf" }}>
+                  Select your budget
+                </option>
+                {BUDGETS.map((o) => (
+                  <option key={o} value={o} style={{ backgroundColor: "#0e243d", color: "#ffffff" }}>
+                    {o}
+                  </option>
+                ))}
+              </select>
+              <div
+                aria-hidden="true"
+                style={{
+                  ...abs(fx(834), fy(372), 18, 34),
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  fontSize: u(9.7),
+                  color: "#becfe4",
+                  userSelect: "none",
+                }}
+              >
+                ▾
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  ...abs(fx(557), fy(417), 301, 32),
+                  background: "#1f97ff",
+                  borderRadius: u(6),
+                  fontSize: u(11),
+                  fontWeight: 600,
+                  color: "#fff",
+                  border: "none",
+                  cursor: "pointer",
+                  opacity: loading ? 0.6 : 1,
+                }}
+              >
+                {loading ? "Sending…" : "Get a Free Consultation  →"}
+              </button>
+              <T x={0} y={fy(459)} s={9.4} lh={11} c="#becfe4" w={396} center>
+                🔒 Your information is 100% secure and will not be<br />shared.
+              </T>
+            </form>
+
+            {/* hero ring sits on top of the card with transparency, as in the image */}
+            <img
+              src="/images/ring-hero.png"
+              alt=""
+              aria-hidden
+              style={{
+                ...abs(819, -134, 342, 334),
+                zIndex: 20,
+                pointerEvents: "none",
+                opacity: 0.8,
+              }}
+            />
+
+            {/* ============ TRUST ============ */}
+            <div id="about" style={{ ...abs(0, 640, 1024, 1), pointerEvents: "none" }} />
+            <div id="team" style={{ ...abs(0, 640, 1024, 1), pointerEvents: "none" }} />
+            <T x={0} y={661} s={35} lh={36} b w={1024} center>Building Digital Solutions</T>
+            <T x={0} y={697} s={35} lh={36} b c="#1076e6" w={1024} center>That Businesses Trust</T>
+            <T x={125} y={777} s={12} lh={15} b>
+              With years of experience in digital product development, Empire AE helps businesses transform their ideas into practical, user-friendly<br />mobile applications.
+            </T>
+            {/* ============ STATS (Crisp Vector Typography) ============ */}
+            <div style={{ ...abs(277 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
+              <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
+                100+
+              </div>
+              <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
+                Successful Projects
+              </div>
+            </div>
+
+            <div style={{ ...abs(516 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
+              <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
+                100+
+              </div>
+              <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
+                Trusted Businesses
+              </div>
+            </div>
+
+            <div style={{ ...abs(755 - 100, 873, 200), display: "flex", flexDirection: "column", alignItems: "center", pointerEvents: "none" }}>
+              <div style={{ fontSize: u(26), lineHeight: u(28), fontWeight: 700, color: "#ffffff", letterSpacing: "0.02em" }}>
+                9+
+              </div>
+              <div style={{ marginTop: u(6), fontSize: u(11.5), lineHeight: u(14), fontWeight: 400, color: "#ffffff", textAlign: "center", whiteSpace: "nowrap" }}>
+                Years of Excellence
+              </div>
+            </div>
+            <img
+              src="/images/clients.png"
+              alt="Nakshathra, SuchiGo, Gaby Talk, Heart Mate, KDE"
+              style={{ ...abs(95, 990, 755, 70), zIndex: 5 }}
+            />
+
+            {/* ============ SERVICES ============ */}
+            <div id="services" style={{ ...abs(0, 1180, 1024, 1), pointerEvents: "none" }} />
+            <T x={271} y={1218} s={68.9} lh={69} b>What <span style={{ color: "#006eef" }}>we offer</span></T>
+            {SERVICES.map((s, idx) => {
+              const { x, y } = SERVICE_COORDS[idx];
+              return (
+                <div
+                  key={s.title.join("-")}
+                  style={{
+                    ...abs(x, y, 276, 170),
+                    background: "#ffffff",
+                    borderRadius: u(16),
+                    boxShadow: `inset 0 0 0 ${u(1.4)} #dae1eb, 0 4px 16px rgba(0,0,0,0.12)`,
+                    padding: `${u(14)} ${u(16)}`,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    boxSizing: "border-box",
+                    textAlign: "center",
+                  }}
+                >
+                  <img
+                    src={s.icon}
+                    alt={s.title.join(" ")}
+                    style={{ width: u(54), height: u(54), objectFit: "contain" }}
+                  />
+                  <div>
+                    <div style={{ fontSize: u(14.5), lineHeight: u(18), fontWeight: 700, color: "#091e3c" }}>
+                      {s.title.map((l, i) => (
+                        <span key={i}>
+                          {l}
+                          {i < s.title.length - 1 && <br />}
+                        </span>
+                      ))}
+                    </div>
+                    <div style={{ fontSize: u(11), lineHeight: u(15), color: "#5c6e84", marginTop: u(4) }}>
+                      {s.text.map((l, i) => (
+                        <span key={i}>
+                          {l}
+                          {i < s.text.length - 1 && <br />}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* ============ PORTFOLIO ============ */}
+            <div id="portfolio" style={{ ...abs(0, 1750, 1024, 1), pointerEvents: "none" }} />
+            <img
+              src="/images/portfolio-right.png"
+              alt=""
+              aria-hidden
+              style={{
+                ...abs(760, 1728, 264, 230),
+                pointerEvents: "none",
+              }}
+            />
+            <T x={74} y={1794} s={48} lh={48}>
+              Apps{" "}
+              <span
+                style={{
+                  background: "linear-gradient(180deg, #9ecbff 0%, #16539e 35%, #0b254a 70%, #020914 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                We’ve Built
+              </span>
+            </T>
+            <T x={74} y={1862} s={14} lh={18}>Here are some of the mobile applications we have developed for our clients.</T>
+
+            {PROJECTS.map((p) => (
+              <div key={p.name}>
+                <div style={{ ...abs(p.x, 1963, 208, 185), background: "#fff", borderRadius: u(22) }} />
+                <div style={{ ...abs(p.x + 2, 1965, 204, 105), background: "#164169", borderRadius: u(19) }} />
+                <T x={p.x + 2} y={1988} s={22} lh={26} b w={204} center>APP<br />PREVIEW</T>
+                <T x={p.x + 16} y={2078} s={16} lh={19} c="#081c37" b>{p.name}</T>
+                <T x={p.x + 16} y={2102} s={11.5} lh={15} c="#506478">Industry: {p.industry}<br />Platform: Android + iOS</T>
+
+              </div>
+            ))}
+            <img
+              src="/images/portfolio-left.png"
+              alt=""
+              aria-hidden
+              style={{
+                ...abs(0, 2190, 222, 142),
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* ============ TESTIMONIALS ============ */}
+            <T x={76} y={2360} s={34} lh={38} b>What Our <span style={{ color: "#18c4ff" }}>Clients Say</span></T>
+            {TESTIMONIALS.slice(0, 3).map((t, idx) => {
+              const cardX = [76, 370, 664][idx];
+              return (
+                <div
+                  key={t.id}
+                  style={{
+                    ...abs(cardX, 2415, 284, 158),
+                    background: "#081e37",
+                    borderRadius: u(14),
+                    boxShadow: `inset 0 0 0 ${u(1.5)} #1469aa`,
+                    padding: `${u(16)} ${u(18)}`,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    boxSizing: "border-box",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: u(12) }}>
+                    <TestimonialAvatar image={t.image} name={t.name} />
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: u(11),
+                        lineHeight: u(15.2),
+                        color: "#e2ecf8",
+                        fontStyle: "italic",
+                        whiteSpace: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      {t.review}
+                    </p>
+                  </div>
+                  <div style={{ paddingLeft: u(56) }}>
+                    <div style={{ fontSize: u(13), lineHeight: u(16), fontWeight: 700, color: "#ffffff" }}>
+                      {t.name}
+                    </div>
+                    <div style={{ fontSize: u(10.5), lineHeight: u(13), color: "#aabcd2", marginTop: u(2) }}>
+                      {t.role}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* ============ FAQ ============ */}
+            <div id="faq" style={{ ...abs(0, 2600, 1024, 1), pointerEvents: "none" }} />
+            <T x={76} y={2620} s={34} lh={38} b>Frequently <span style={{ color: "#18c4ff" }}>Asked Questions</span></T>
+
+            {[...leftFaqItems, ...rightFaqItems].map((item) => (
+              <div
+                key={item.q}
+                onClick={() => toggleFaq(item.index)}
+                style={{
+                  ...abs(item.x, item.y, 428, item.h),
+                  background: item.isOpen ? "#071830" : "#051223",
                   borderRadius: u(8),
+                  boxShadow: `inset 0 0 0 ${u(1.5)} ${item.isOpen ? "#18c4ff" : "#1469aa"}`,
+                  cursor: "pointer",
+                  padding: `${u(13)} ${u(18)}`,
+                  boxSizing: "border-box",
+                  overflow: "hidden",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: u(9.5),
-                  lineHeight: u(12),
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  textDecoration: "none",
+                  justifyContent: "flex-start",
+                  transition: "background 0.2s, box-shadow 0.2s, height 0.2s",
                 }}
               >
-                <span>Call Now</span>
-                <span style={{ fontSize: u(8.5), fontWeight: 400 }}>+91 98952 80605</span>
-              </a>
-            </div>
-          </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: u(10), minHeight: u(20) }}>
+                  <span style={{ fontSize: u(12.5), lineHeight: u(16), fontWeight: 500, color: "#ffffff", whiteSpace: "nowrap" }}>
+                    {item.q}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: u(18),
+                      lineHeight: u(18),
+                      fontWeight: 700,
+                      color: "#18c4ff",
+                      transform: item.isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                      transition: "transform 0.2s ease",
+                      display: "inline-block",
+                      userSelect: "none",
+                    }}
+                  >
+                    +
+                  </span>
+                </div>
+                {item.isOpen && (
+                  <div
+                    style={{
+                      marginTop: u(10),
+                      paddingTop: u(8),
+                      borderTop: `1px solid rgba(24, 196, 255, 0.2)`,
+                      fontSize: u(11),
+                      lineHeight: u(15.2),
+                      color: "#b9cadc",
+                      whiteSpace: "normal",
+                    }}
+                  >
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            ))}
 
-          {/* ============ FOOTER ============ */}
-          <div id="contact" style={{ ...abs(0, 3050 + totalFaqExpansion, 1024, 1), pointerEvents: "none" }} />
-          <Link href="/" style={abs(76, 3055 + totalFaqExpansion, 55, 68)} aria-label="Empire AE">
-            <img src="/images/logo.png" alt="empireae" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          </Link>
-          {SOCIALS.map(([label, x]) => (
-            <a key={label} href="#" style={{ ...abs(x, 3085 + totalFaqExpansion), fontSize: u(12), lineHeight: u(14), color: "#fff", textDecoration: "none" }}>{label}</a>
-          ))}
+            {/* ============ CTA & CONTACT ============ */}
+            <div id="contact" style={{ ...abs(0, 2850 + totalFaqExpansion, 1024, 1), pointerEvents: "none" }} />
+            <div id="careers" style={{ ...abs(0, 2850 + totalFaqExpansion, 1024, 1), pointerEvents: "none" }} />
+            <div
+              style={{
+                ...abs(76, 2885 + totalFaqExpansion, 872, 114),
+                background: "#091e3c",
+                borderRadius: u(16),
+                boxShadow: `inset 0 0 0 ${u(1.5)} #1076e6`,
+                padding: `0 ${u(28)}`,
+                boxSizing: "border-box",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: u(16),
+              }}
+            >
+              {/* Left Headline */}
+              <div style={{ flexShrink: 0 }}>
+                <div style={{ fontSize: u(24), lineHeight: u(28), fontWeight: 700, color: "#ffffff" }}>
+                  Make your
+                </div>
+                <div style={{ fontSize: u(22), lineHeight: u(26), fontWeight: 700, color: "#18c4ff" }}>
+                  mark in the digital world
+                </div>
+              </div>
+
+              {/* Middle Description */}
+              <div
+                style={{
+                  maxWidth: u(230),
+                  fontSize: u(11.5),
+                  lineHeight: u(16.5),
+                  color: "#d0e0f2",
+                  whiteSpace: "normal",
+                  wordBreak: "normal",
+                  flex: "1 1 auto",
+                  margin: `0 ${u(12)}`,
+                }}
+              >
+                Discuss your app idea with our experts and get a free consultation.
+              </div>
+
+              {/* Right Buttons */}
+              <div style={{ display: "flex", alignItems: "center", gap: u(14), flexShrink: 0 }}>
+                <a
+                  href="#consult"
+                  style={{
+                    width: u(144),
+                    height: u(44),
+                    background: "#ffffff",
+                    borderRadius: u(8),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: u(10.5),
+                    fontWeight: 600,
+                    color: "#081e37",
+                    textDecoration: "none",
+                  }}
+                >
+                  Get Free Consultation →
+                </a>
+                <a
+                  href="tel:+919895280605"
+                  style={{
+                    width: u(130),
+                    height: u(44),
+                    background: "#051834",
+                    boxShadow: `inset 0 0 0 ${u(1.5)} #ffffff`,
+                    borderRadius: u(8),
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: u(9.5),
+                    lineHeight: u(12),
+                    fontWeight: 600,
+                    color: "#ffffff",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>Call Now</span>
+                  <span style={{ fontSize: u(8.5), fontWeight: 400 }}>+91 98952 80605</span>
+                </a>
+              </div>
+            </div>
+
+            {/* ============ FOOTER ============ */}
+            <Link href="/" style={abs(76, 3055 + totalFaqExpansion, 55, 68)} aria-label="Empire AE">
+              <img src="/images/logo.png" alt="empireae" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            </Link>
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  ...abs(s.x, 3085 + totalFaqExpansion),
+                  fontSize: u(12),
+                  lineHeight: u(14),
+                  color: "#fff",
+                  textDecoration: "none",
+                }}
+                className="hover:!text-[#18c4ff] transition-colors"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
 
       {/* =============================================================== */}
@@ -915,10 +1082,10 @@ export default function Page() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {SERVICES.map((s) => (
               <div
-                key={s.icon}
+                key={s.title.join("-")}
                 className="bg-white rounded-2xl p-6 text-center border border-[#dae1eb] shadow-lg flex flex-col items-center justify-between transition-transform duration-200 hover:-translate-y-1"
               >
-                <img src={s.icon} alt="" className="w-16 h-16 object-contain mb-4" />
+                <img src={s.icon} alt={s.title.join(" ")} className="w-16 h-16 object-contain mb-4" />
                 <h3 className="text-[#091e3c] font-bold text-base leading-snug mb-2">
                   {s.title.join(" ")}
                 </h3>
@@ -1008,20 +1175,16 @@ export default function Page() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
               <div
-                key={t.name}
+                key={t.id}
                 className="bg-[#081e37] border border-[#1469aa] rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xl"
               >
                 <div className="flex items-start gap-4 mb-5">
-                  <img
-                    src="/images/avatar.png"
-                    alt=""
-                    className="w-12 h-12 rounded-full object-cover shrink-0"
-                  />
+                  <MobileTestimonialAvatar image={t.image} name={t.name} />
                   <p className="text-sm sm:text-base text-gray-200 leading-relaxed italic">
-                    {t.lines.join(" ")}
+                    {t.review}
                   </p>
                 </div>
                 <div className="pt-3.5 border-t border-white/10">
@@ -1054,16 +1217,14 @@ export default function Page() {
                 <div
                   key={faq.q}
                   onClick={() => toggleFaq(index)}
-                  className={`bg-[#051223] border ${
-                    isOpen ? "border-[#18c4ff] bg-[#071830]" : "border-[#1469aa]"
-                  } rounded-xl px-6 py-4.5 cursor-pointer transition-colors flex flex-col justify-between`}
+                  className={`bg-[#051223] border ${isOpen ? "border-[#18c4ff] bg-[#071830]" : "border-[#1469aa]"
+                    } rounded-xl px-6 py-4.5 cursor-pointer transition-colors flex flex-col justify-between`}
                 >
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-sm sm:text-base text-white font-medium">{faq.q}</span>
                     <span
-                      className={`text-[#18c4ff] text-xl font-bold shrink-0 transition-transform duration-200 select-none ${
-                        isOpen ? "rotate-45" : "rotate-0"
-                      }`}
+                      className={`text-[#18c4ff] text-xl font-bold shrink-0 transition-transform duration-200 select-none ${isOpen ? "rotate-45" : "rotate-0"
+                        }`}
                     >
                       +
                     </span>
@@ -1079,8 +1240,9 @@ export default function Page() {
           </div>
         </section>
 
-        {/* CTA Banner */}
-        <section id="careers" className="py-14 px-4 sm:px-6 max-w-5xl mx-auto">
+        {/* CTA Banner & Contact */}
+        <section id="contact" className="py-14 px-4 sm:px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div id="careers" className="sr-only" />
           <div className="bg-[#091e3c] border border-[#1076e6] rounded-3xl p-7 sm:p-11 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-blue-900/30">
             <div className="text-center md:text-left">
               <h2 className="text-2xl sm:text-4xl font-bold text-white leading-tight">
@@ -1109,15 +1271,21 @@ export default function Page() {
         </section>
 
         {/* Footer */}
-        <footer id="contact" className="py-10 px-4 sm:px-6 border-t border-white/10 text-center">
+        <footer className="py-10 px-4 sm:px-6 border-t border-white/10 text-center">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
             <Link href="/" aria-label="Empire AE">
               <img src="/images/logo.png" alt="Empire AE" className="h-12 w-auto object-contain" />
             </Link>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-300">
-              {SOCIALS.map(([label]) => (
-                <a key={label} href="#" className="hover:text-[#18c4ff] transition-colors">
-                  {label}
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#18c4ff] transition-colors"
+                >
+                  {s.label}
                 </a>
               ))}
             </div>
